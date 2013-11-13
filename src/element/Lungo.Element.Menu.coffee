@@ -20,7 +20,10 @@ Lungo.Element.Menu = do (lng = Lungo) ->
   ###
   show = (id) ->
     element = @_instance id
-    if element then element.addClass C.CLASS.SHOW
+    if element
+      element.addClass C.CLASS.SHOW
+      # Set a timeout to skip firing events simultaneously 
+      setTimeout -> Lungo.dom(C.ELEMENT.BODY).addClass C.CLASS.MENU_OPENED, C.DELAY.DEFAUT
 
   ###
   Hides the <data-control-menu> with a determinate Id
@@ -29,7 +32,9 @@ Lungo.Element.Menu = do (lng = Lungo) ->
   ###
   hide = (id) ->
     element = @_instance id
-    if element then element.removeClass C.CLASS.SHOW
+    if element 
+      element.removeClass C.CLASS.SHOW
+      Lungo.dom(C.ELEMENT.BODY).removeClass C.CLASS.MENU_OPENED
 
   ###
   Toggles the <data-control-menu> with a determinate Id
@@ -39,10 +44,17 @@ Lungo.Element.Menu = do (lng = Lungo) ->
   toggle = (id) ->
     element = @_instance id
     if element
-      if element.hasClass C.CLASS.SHOW then @show id else @hide id
+      if element.hasClass C.CLASS.SHOW then @hide id else @show id
+                
+  closeAll = ->
+    _this = @
+    Lungo.dom(C.CONTROL.MENU).each ->
+      el = _this._instance Lungo.dom(@).attr C.ATTRIBUTE.ID
+      if el then el.removeClass C.CLASS.SHOW
 
   _instance: (id) -> Lungo.dom "#{C.CONTROL.MENU}##{id}"
 
   show  : show
   hide  : hide
   toggle: toggle
+  closeAll: closeAll

@@ -29,6 +29,7 @@ Lungo.Constants =
     SECTION_ROUTER_TAP   : "article [data-view-section]"
     ASIDE_ROUTER         : "[data-view-aside]"
     MENU_ROUTER          : "[data-view-menu]"
+    MENU_OPENED          : ".menu_opened"    
 
     LIST_IN_ELEMENT      : "article.list"
     ELEMENT_SCROLLABLE   : "article.scroll"
@@ -43,6 +44,7 @@ Lungo.Constants =
 
   CLASS:
     ACTIVE               : "active"
+    MENU_OPENED          : "menu_opened"
     ASIDE                : "aside"
     SHOW                 : "show"
     HIDE                 : "hide"
@@ -69,6 +71,8 @@ Lungo.Constants =
   ASIDE:
     NORMAL               : 264
 
+  DELAY:
+    DEFAULT              : 300
 
   ATTRIBUTE:
     ID                   : "id"

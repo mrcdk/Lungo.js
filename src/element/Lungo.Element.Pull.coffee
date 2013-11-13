@@ -39,7 +39,7 @@ Lungo.Element.Pull = (element_selector, config_data) ->
   _moveElementTo = (posY, animate) ->
     newPos = (if posY > MAX_HEIGHT then MAX_HEIGHT else posY)
     if animate then ELEMENT.addClass "pull" else ELEMENT.removeClass "pull"
-    ELEMENT.style "-webkit-transform", "translate(0, " + (newPos) + "px)"
+    ELEMENT.style "-webkit-transform", "translate3d(0, " + (newPos) + "px, 0)"
     if animate
       setTimeout (->
         ELEMENT.removeClass "pull"

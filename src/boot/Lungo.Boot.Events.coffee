@@ -29,7 +29,8 @@ Lungo.Boot.Events = do (lng = Lungo) ->
     lng.dom(C.QUERY.ARTICLE_ROUTER_TAP).tap _onArticle
     lng.dom(C.QUERY.ASIDE_ROUTER).touch _onAside
     lng.dom(C.QUERY.MENU_ROUTER).touch _onMenu
-    lng.dom(QUERY.MENU_HREF).touch _closeMenu
+    lng.dom(C.QUERY.MENU_HREF).touch _closeMenu
+    lng.dom(C.QUERY.MENU_OPENED).tap _closeAllMenus
     for transition in C.EVENT.TRANSITION_END
       lng.dom("body").delegate C.ELEMENT.SECTION, transition, _transitionEnd
       lng.dom("body").delegate C.ELEMENT.ASIDE, transition, _transitionEnd
@@ -79,7 +80,7 @@ Lungo.Boot.Events = do (lng = Lungo) ->
   _onMenu = (event) ->
     event.preventDefault()
     id = lng.dom(@).data("view-menu")
-    lng.Element.Menu.show id
+    lng.Element.Menu.toggle id
 
   _closeMenu = (event) ->
     event.preventDefault()
@@ -88,6 +89,15 @@ Lungo.Boot.Events = do (lng = Lungo) ->
     lng.Element.Menu.hide id
     lng.dom("[data-view-menu=#{id}] > .icon").attr "class", "icon " + el.data("icon")
 
+  _closeAllMenus = (event) ->
+    event.preventDefault()
+    # Check if the parent of the element is a menu
+    isMenu = lng.dom(@).parent(C.CONTROL.MENU).length isnt 0
+    unless isMenu
+      lng.Element.Menu.closeAll()
+      Lungo.dom(C.ELEMENT.BODY).removeClass C.CLASS.MENU_OPENED
+    
+    
   _transitionEnd = (event) ->
     section = lng.dom(event.target)
     hasDirection = section.data("direction")

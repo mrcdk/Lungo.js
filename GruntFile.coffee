@@ -82,6 +82,8 @@ module.exports = (grunt) ->
         expand: true, flatten: true, src: '<%=source.theme%>', dest: '<%=meta.package%>/<%=meta.file%>.theme/'
       icon:
         expand: false, flatten: true, src: '<%=meta.package%>/<%=meta.file%>.icon/<%=meta.file%>.icon.css', dest: '<%=meta.endpoint%>/<%=meta.file%><%=meta.version%>/<%=meta.file%>.icon.css'
+      debug:
+        expand: true, flatten: true, src: '<%=meta.temp%>/<%=meta.file%>.debug.js', dest: '<%=meta.endpoint%>/<%=meta.file%><%=meta.version%>/'
 
     watch:
       coffee:
