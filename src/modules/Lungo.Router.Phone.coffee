@@ -16,6 +16,7 @@ Lungo.RouterPhone = do (lng = Lungo) ->
   HASHTAG             = "#"
   _history            = []
   _animating          = false
+  _tmp                = undefined
 
   ###
   Navigate to a <section>.
@@ -33,6 +34,7 @@ Lungo.RouterPhone = do (lng = Lungo) ->
         lng.Router.step section_id
         do _url unless Lungo.Config.history is false
     else if lng.Element.Cache.aside then do lng.Aside.hide
+    return true
 
   ###
   Return to previous section.
@@ -56,17 +58,36 @@ Lungo.RouterPhone = do (lng = Lungo) ->
   @param    {string} <article> Id
   ###
   article = (section_id, article_id, element) ->
-    if _notCurrentTarget(lng.Element.Cache.article, article_id)
+    console.log "Article called:", section_id, article_id
+        
+    if _notCurrentTarget lng.Element.Cache.section, section_id
+      console.log "Not current section"
+      _tmp = {section: section_id, article: article_id, element: element}
       lng.Router.section section_id
-      target = lng.Element.Cache.section.find "##{article_id}"
-      if target.length > 0
-        lng.Element.Cache.article.removeClass(C.CLASS.ACTIVE).trigger C.TRIGGER.UNLOAD
-        lng.Element.Cache.article = target.addClass(C.CLASS.ACTIVE).trigger(C.TRIGGER.LOAD)
-
-        if element?.data(C.ATTRIBUTE.TITLE)?
-          lng.Element.Cache.section.find(C.QUERY.TITLE).text element.data(C.ATTRIBUTE.TITLE)
-        do _url unless Lungo.Config.history is false
-        do _updateNavigationElements
+    else
+      console.log "Current section"
+      if _notCurrentTarget(lng.Element.Cache.article, article_id)
+        console.log "Not current article"
+        _article section_id, article_id, element
+        _tmp = undefined
+        if lng.Element.Cache.aside then do lng.Aside.hide
+      else
+        console.log "Current article"
+        _tmp = undefined
+        if lng.Element.Cache.aside then do lng.Aside.hide
+      
+        
+  _article = (section_id, article_id, element) ->
+    _tmp = undefined
+    target = lng.Element.Cache.section.find "##{article_id}"
+    if target.length > 0
+      lng.Element.Cache.article.removeClass(C.CLASS.ACTIVE).trigger C.TRIGGER.UNLOAD
+      lng.Element.Cache.article = target.addClass(C.CLASS.ACTIVE).trigger(C.TRIGGER.LOAD)
+      if element?.data(C.ATTRIBUTE.TITLE)?
+        lng.Element.Cache.section.find(C.QUERY.TITLE).text element.data(C.ATTRIBUTE.TITLE)
+      do _url unless Lungo.Config.history is false
+      do _updateNavigationElements
+        
 
   ###
   Triggered when <section> animation ends. Reset animation classes of section and aside
@@ -103,7 +124,10 @@ Lungo.RouterPhone = do (lng = Lungo) ->
   ###
   _section = (future, current, backward = false) ->
     callback = ->
+      console.log "Callback called"
       _show future, current, backward
+      if _tmp
+        _article _tmp.section, _tmp.article, _tmp.element
       do _updateNavigationElements
     if lng.Element.Cache.aside then lng.Aside.hide callback
     else do callback
