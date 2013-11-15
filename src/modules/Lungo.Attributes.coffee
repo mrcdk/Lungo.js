@@ -11,6 +11,10 @@ Lungo.Attributes =
   count:
     selector: "*"
     html: "<span class=\"tag count\">{{value}}</span>"
+    
+  count_aside:
+    selector: "aside"
+    html: "<span class=\"tag count on-right\">{{value}}</span>"
 
   pull:
     selector: "*"

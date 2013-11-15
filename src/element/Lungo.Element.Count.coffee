@@ -11,11 +11,15 @@ Set a counter to the element
 ###
 
 
-Lungo.Element.count = (selector, count) ->
+Lungo.Element.count = (selector, count, aside = false) ->
   element = Lungo.dom(selector)
   if element
     element.children(".tag.count").remove()
     if count
       binding = Lungo.Constants.BINDING.SELECTOR
-      html = Lungo.Attributes.count.html.replace(binding, count)
-      element.append html
+      if aside
+        html = Lungo.Attributes.count_aside.html.replace(binding, count)
+        element.prepend html
+      else
+        html = Lungo.Attributes.count.html.replace(binding, count)
+        element.append html
