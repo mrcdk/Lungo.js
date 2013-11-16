@@ -57,12 +57,12 @@ Lungo.RouterPhone = do (lng = Lungo) ->
   @param    {string} <section> Id
   @param    {string} <article> Id
   ###
-  article = (section_id, article_id, element) ->
+  article = (section_id, article_id, element, force = false) ->
     if _notCurrentTarget lng.Element.Cache.section, section_id
       _tmp = {section: section_id, article: article_id, element: element}
       lng.Router.section section_id
     else
-      if _notCurrentTarget(lng.Element.Cache.article, article_id)
+      if _notCurrentTarget(lng.Element.Cache.article, article_id) or force
         _article section_id, article_id, element
         _tmp = undefined
         if lng.Element.Cache.aside then do lng.Aside.hide
