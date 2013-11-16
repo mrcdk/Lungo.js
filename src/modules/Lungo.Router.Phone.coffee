@@ -58,21 +58,15 @@ Lungo.RouterPhone = do (lng = Lungo) ->
   @param    {string} <article> Id
   ###
   article = (section_id, article_id, element) ->
-    console.log "Article called:", section_id, article_id
-        
     if _notCurrentTarget lng.Element.Cache.section, section_id
-      console.log "Not current section"
       _tmp = {section: section_id, article: article_id, element: element}
       lng.Router.section section_id
     else
-      console.log "Current section"
       if _notCurrentTarget(lng.Element.Cache.article, article_id)
-        console.log "Not current article"
         _article section_id, article_id, element
         _tmp = undefined
         if lng.Element.Cache.aside then do lng.Aside.hide
       else
-        console.log "Current article"
         _tmp = undefined
         if lng.Element.Cache.aside then do lng.Aside.hide
       
@@ -124,7 +118,6 @@ Lungo.RouterPhone = do (lng = Lungo) ->
   ###
   _section = (future, current, backward = false) ->
     callback = ->
-      console.log "Callback called"
       _show future, current, backward
       if _tmp
         _article _tmp.section, _tmp.article, _tmp.element
