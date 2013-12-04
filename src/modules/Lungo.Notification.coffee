@@ -75,8 +75,10 @@ Lungo.Notification = do(lng = Lungo) ->
   confirm = (options) ->
     _options = options
     markup = _markup(options.title, options.description, options.icon)
-    markup += _button_markup(options.accept, "accept")
-    markup += _button_markup(options.cancel, "cancel")
+    if options.accept
+        markup += _button_markup(options.accept, "accept")
+    if options.cancel
+        markup += _button_markup(options.cancel, "cancel")
     _show markup, "confirm"
 
 
