@@ -40,15 +40,16 @@ body[data-device="phone"] > section
     &[data-direction="back-out"]
       vendor(animation-name, phoneFadeOut)
 
-OPACITY   = 0.25
+OPACITY   = 0.8
 TRANSLATE = 110%
 /* ------ SLIDE ------ */
 DEGREES   = -15deg
 @keyframes phoneSlideOut
-  0%    { transform: translateZ(0) }
+  0%    { 
+    transform: translateZ(0)
+  }
   100%  {
-    transform: rotateY(DEGREES)
-    opacity: OPACITY
+    transform: translateZ(0)
   }
 
 @keyframes phoneSlideIn
@@ -62,10 +63,11 @@ DEGREES   = -15deg
 
 @keyframes phoneSlideBackIn
   0%    {
-    transform: rotateY(DEGREES)
-    opacity: OPACITY
+    transform: translateZ(0)
   }
-  100%  { transform: translateZ(0) }
+  100%  { 
+    transform: translateZ(0)
+  }
 
 
 /* ------ COVER ------ */
