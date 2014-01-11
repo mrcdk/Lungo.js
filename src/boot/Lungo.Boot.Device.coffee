@@ -16,7 +16,8 @@ Lungo.Boot.Device = do(lng = Lungo) ->
   ###
   init = ->
     env = lng.Core.environment()
-    lng.DEVICE = (if env.screen.width < 768 then DEVICE.PHONE else DEVICE.TABLET)
+    #lng.DEVICE = (if env.screen.width < 768 then DEVICE.PHONE else DEVICE.TABLET)
+    lng.DEVICE = DEVICE.PHONE
 
     body = lng.dom document.body
     body.data "device", lng.DEVICE
