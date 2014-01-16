@@ -46,17 +46,20 @@ TRANSLATE = 110%
 DEGREES   = -15deg
 @keyframes phoneSlideOut
   0%    { 
-    transform: translateZ(0)
+    transform: translateZ(-100)
   }
   100%  {
-    transform: translateZ(0)
+    transform: translateZ(-100)
   }
 
 @keyframes phoneSlideIn
   0%    { 
     transform: translateX(TRANSLATE)
   }
-  100%  { 
+  85%  { 
+    transform: translateX(0)
+  }
+  100% {
     transform: translateX(0)
   }
 
@@ -65,16 +68,19 @@ DEGREES   = -15deg
   0%    { 
     transform: translateX(0)
   }
+  85%  { 
+    transform: translateX(TRANSLATE) 
+  }
   100%  { 
     transform: translateX(TRANSLATE) 
   }
 
 @keyframes phoneSlideBackIn
   0%    {
-    transform: translateZ(0)
+    transform: translateZ(-100)
   }
   100%  { 
-    transform: translateZ(0)
+    transform: translateZ(-100)
   }
 
 
